@@ -1,0 +1,36 @@
+ https://pokeapi.co/api/v2/pokemon/gardevoir
+
+// Prueba de estado de la solicitud
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+
+
+// Prueba de contenido del encabezado
+pm.test("Content-Type is application/json", function () {
+    pm.response.to.have.header("Content-Type", "application/json");
+});
+
+// Prueba de contenido de la respuesta
+pm.test("Response body should be valid JSON", function () {
+    pm.response.to.be.json;
+});
+
+// Prueba de que la respuesta contiene información de Pokémon
+pm.test("Response body should contain Pokémon data", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData).to.have.property("name");
+    pm.expect(jsonData).to.have.property("abilities");
+    pm.expect(jsonData).to.have.property("types");
+});
+
+// Prueba de que la respuesta contiene información de Pokémon específico (por ejemplo, Pikachu)
+pm.test("Response body should contain specific Pokémon data", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.name).to.eql("pikachu");
+    pm.expect(jsonData.abilities.length).to.be.above(0);
+    pm.expect(jsonData.types.length).to.be.above(0);
+});
+
+
